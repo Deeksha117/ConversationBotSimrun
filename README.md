@@ -1,7 +1,10 @@
 ﻿
 # Teams Conversation Bot
 
-Bot Framework v4 Conversation Bot sample for Teams.
+SimRUN is a Microsoft Teams conversation bot created to manage a Virtual Running event.
+
+'SimRUN' allowed people to log their entry for the day in terms of "How many kms run"
+The architecture consisted of a webservice and a SQL database. Azure WebService provided APIs to interact and saved the data to the SQL server based on user inputs.
 
 This bot has been created using [Bot Framework](https://dev.botframework.com). This sample shows
 how to incorporate basic conversational flow into a Teams application. It also illustrates a few of the Teams specific calls you can make from your bot.
@@ -12,24 +15,13 @@ how to incorporate basic conversational flow into a Teams application. It also i
 - [.NET Core SDK](https://dotnet.microsoft.com/download) version 3.1
 - [ngrok](https://ngrok.com/) or equivalent tunnelling solution
 
-## To try this sample
-
-> Note these instructions are for running the sample on your local machine, the tunnelling solution is required because
-the Teams service needs to call into the bot.
-
-1) Clone the repository
-
-    ```bash
-    git clone https://github.com/Microsoft/botbuilder-samples.git
-    ```
-
+##To Try
 1) If you are using Visual Studio
    - Launch Visual Studio
    - File -> Open -> Project/Solution
-   - Navigate to `samples/csharp_dotnetcore/57.teams-conversation-bot` folder
    - Select `TeamsConversationBot.csproj` file
 
-1) Run ngrok - point to port 3978
+1) For running locally - Run ngrok - point to port 3978
 
     ```bash
     ngrok http -host-header=rewrite 3978
@@ -53,21 +45,16 @@ the Teams service needs to call into the bot.
 
 You can interact with this bot by sending it a message, or selecting a command from the command list. The bot will respond to the following strings.
 
-1. **Show Welcome**
-  - **Result:** The bot will send the welcome card for you to interact with
-  - **Valid Scopes:** personal, group chat, team chat
-2. **MentionMe**
-  - **Result:** The bot will respond to the message and mention the user
-  - **Valid Scopes:** personal, group chat, team chat
-3. **MessageAllMembers**
-  - **Result:** The bot will send a 1-on-1 message to each member in the current conversation (aka on the conversation's roster).
-  - **Valid Scopes:** personal, group chat, team chat
+1. **Hi**
+  - **Result:** The bot will send the welcome card for you to interact with, provde you a list of all possible commands that bot understands
+2. **Add me to DNS team**
+  - **Result:** The bot will respond to the message if user was succesfully added or not.
+  In case of success - the response is "Sucessfully registered you to team DNS"
+  In case of failure - the response is "Please enter valid team name from list"
+3. **get my total, get team total, get rank, get overall team stats, get team stats for today**
+  - **Result:** The bot will send a 1-on-1 message to each member in the current conversation based on the query after fetching aggregarted data from SQL server
 
 You can select an option from the command list by typing ```@TeamsConversationBot``` into the compose message area and ```What can I do?``` text above the compose area.
-
-### Avoiding Permission-Related Errors
-
-You may encounter permission-related errors when sending a proactive message. This can often be mitigated by using `MicrosoftAppCredentials.TrustServiceUrl()`. See [the documentation](https://docs.microsoft.com/en-us/azure/bot-service/bot-builder-howto-proactive-message?view=azure-bot-service-4.0&tabs=csharp#avoiding-401-unauthorized-errors) for more information.
 
 ## Deploy the bot to Azure
 
@@ -76,4 +63,6 @@ To learn more about deploying a bot to Azure, see [Deploy your bot to Azure](htt
 ## Further reading
 
 - [How Microsoft Teams bots work](https://docs.microsoft.com/en-us/azure/bot-service/bot-builder-basics-teams?view=azure-bot-service-4.0&tabs=javascript)
-
+   This is the doc I followed https://docs.microsoft.com/en-us/microsoftteams/platform/bots/how-to/create-a-bot-for-teams
+ 
+   And picked skeleton source code form https://github.com/microsoft/BotBuilder-Samples/tree/main/samples/csharp_dotnetcore/57.teams-conversation-bot
